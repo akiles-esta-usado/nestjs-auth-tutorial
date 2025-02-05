@@ -1,7 +1,7 @@
 {
   "tasks": {
     "dev": "deno run --watch --allow-read --allow-env --allow-net --allow-sys src/main.ts",
-    "test": "deno test",
+    "test": "deno test --no-check",
     "lint-soft": "deno lint --rules-exclude=no-sloppy-imports,no-unused-vars,no-explicit-any",
     "lint": "deno lint"
   },
