@@ -6,6 +6,7 @@
   "imports": {
     "@nestjs/common": "npm:@nestjs/common@^11.0.7",
     "@nestjs/core": "npm:@nestjs/core@^11.0.7",
+    "@nestjs/jwt": "npm:@nestjs/jwt@^11.0.0",
     "@nestjs/mapped-types": "npm:@nestjs/mapped-types@^2.1.0",
     "@nestjs/platform-express": "npm:@nestjs/platform-express@^11.0.7",
     "@nestjs/swagger": "npm:@nestjs/swagger@^11.0.3",
