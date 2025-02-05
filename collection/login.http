@@ -12,5 +12,5 @@ Content-Type: application/json
 }
 
 ### Get specific user information
-# POST {{URL}}/users/10 HTTP/1.1
-# Authorization: : Bearer {{{{login.response.body.$.accessToken}}}}
+GET {{URL}}/auth/me HTTP/1.1
+Authorization: Bearer {{login.response.body.$.accessToken}}

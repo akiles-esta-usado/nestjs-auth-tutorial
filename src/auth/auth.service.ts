@@ -28,11 +28,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    return {
-      accessToken: 'fake-access',
-      userId: user.userId,
-      username: user.username,
-    };
+    return this.signIn(user);
   }
 
   validateUser(input: LoginDto): SignInData | null {
@@ -46,5 +42,16 @@ export class AuthService {
     }
 
     return null;
+  }
+
+  signIn(user: SignInData): AuthResult {
+    const tokenPayload = {
+      sub: user.userId,
+      username: user.username,
+    };
+
+    const accessToken = this.jwtService.sign(tokenPayload);
+
+    return { accessToken, username: user.username, userId: user.userId };
   }
 }
