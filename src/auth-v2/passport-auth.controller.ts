@@ -7,13 +7,13 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { AuthService } from './auth.service.ts';
+import { AuthV2Service } from './auth-v2.service.ts';
 import { PassportJwtGuard } from './guards/passport-jwt.guard.ts';
 import { PassportLocalGuard } from './guards/passport-local.guard.ts';
 
 @Controller('auth-v2')
 export class PassportAuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthV2Service) {}
 
   @HttpCode(HttpStatus.OK)
   @Post('login')

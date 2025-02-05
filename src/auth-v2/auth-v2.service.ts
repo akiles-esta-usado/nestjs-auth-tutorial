@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { UsersService } from '../users/users.service.ts';
@@ -15,21 +15,11 @@ type AuthResult = {
 };
 
 @Injectable()
-export class AuthService {
+export class AuthV2Service {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
-
-  authenticate(input: LoginDto): AuthResult {
-    const user = this.validateUser(input);
-
-    if (!user) {
-      throw new UnauthorizedException();
-    }
-
-    return this.signIn(user);
-  }
 
   validateUser(input: LoginDto): SignInData | null {
     const user = this.usersService.findByName(input.username);
