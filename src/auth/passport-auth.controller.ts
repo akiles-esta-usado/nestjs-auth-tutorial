@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Get,
   HttpCode,
@@ -9,17 +8,18 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service.ts';
-import { LoginDto } from './dto/login.dto.ts';
 import { AuthGuard } from './guards/auth.guard.ts';
+import { PassportLocalGuard } from './guards/passport-local.guard.ts';
 
-@Controller('auth')
-export class AuthController {
+@Controller('auth-v2')
+export class PassportAuthController {
   constructor(private authService: AuthService) {}
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  login(@Body() input: LoginDto) {
-    return this.authService.authenticate(input);
+  @UseGuards(PassportLocalGuard)
+  login(@Req() request: Request) {
+    return this.authService.signIn(request.user);
   }
 
   @UseGuards(AuthGuard)

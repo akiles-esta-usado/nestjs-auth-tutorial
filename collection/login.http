@@ -1,7 +1,7 @@
 @URL = http://localhost:3000
 
 
-### Authenticate and get token
+### Authentication 1
 # @name login
 POST {{URL}}/auth/login
 Content-Type: application/json
@@ -10,6 +10,18 @@ Content-Type: application/json
   "username": "Alice",
   "password": "topsecret"
 }
+
+
+### Authentication 2
+# @name login
+POST {{URL}}/auth-v2/login
+Content-Type: application/json
+
+{
+  "username": "Alice",
+  "password": "topsecret"
+}
+
 
 ### Get specific user information
 GET {{URL}}/auth/me HTTP/1.1
