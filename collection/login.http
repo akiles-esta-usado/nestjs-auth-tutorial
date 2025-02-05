@@ -1,0 +1,16 @@
+@URL = http://localhost:3000
+
+
+### Authenticate and get token
+# @name login
+POST {{URL}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "Alice",
+  "password": "topsecret"
+}
+
+### Get specific user information
+# POST {{URL}}/users/10 HTTP/1.1
+# Authorization: : Bearer {{{{login.response.body.$.accessToken}}}}

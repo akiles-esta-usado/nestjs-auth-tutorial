@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from 'npm:class-validator';
 
-export class SignInDto {
+export class LoginDto {
   @IsString()
   @IsNotEmpty()
   username: string;

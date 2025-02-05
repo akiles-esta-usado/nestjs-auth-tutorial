@@ -1,9 +1,18 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from 'npm:@nestjs/jwt';
 
-import { CreateAuthDto } from './dto/create-auth.dto.ts';
-import { UpdateAuthDto } from './dto/update-auth.dto.ts';
 import { UsersService } from '../users/users.service.ts';
+import { LoginDto } from './dto/login.dto.ts';
+
+type SignInData = {
+  userId: number;
+  username: string;
+};
+type AuthResult = {
+  accessToken: string;
+  userId: number;
+  username: string;
+};
 
 @Injectable()
 export class AuthService {
@@ -12,40 +21,30 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(
-    username: string,
-    pass: string,
-  ): Promise<{ access_token: string }> {
-    const user = this.usersService.findOne(username);
+  authenticate(input: LoginDto): AuthResult {
+    const user = this.validateUser(input);
 
-    if (user?.password !== pass) {
+    if (!user) {
       throw new UnauthorizedException();
     }
 
-    const payload = { sub: user.userId, username: user.username };
-
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      accessToken: 'fake-access',
+      userId: user.userId,
+      username: user.username,
     };
   }
 
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
-  }
+  validateUser(input: LoginDto): SignInData | null {
+    const user = this.usersService.findByName(input.username);
 
-  findAll() {
-    return `This action returns all auth`;
-  }
+    if (user && user.password == input.password) {
+      return {
+        userId: user.userId,
+        username: user.username,
+      };
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
-
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+    return null;
   }
 }
