@@ -23,6 +23,11 @@ Content-Type: application/json
 }
 
 
-### Get specific user information
+### Get user info 1
 GET {{URL}}/auth/me HTTP/1.1
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+
+### Get user info 2
+GET {{URL}}/auth-v2/me HTTP/1.1
 Authorization: Bearer {{login.response.body.$.accessToken}}
